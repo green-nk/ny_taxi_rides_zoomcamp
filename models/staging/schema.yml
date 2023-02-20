@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: staging
+    database: dtc-de-375601
+    schema: trips_data_all
+    
+    tables:
+      - name: green_trips_data
+      - name: yellow_trips_data
+    
