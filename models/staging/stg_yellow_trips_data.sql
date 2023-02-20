@@ -2,7 +2,7 @@
 
 SELECT
     -- identifier
-    {{ dbt_utils.surrogate_key(['vendorid', 'tpep_dropoff_datetime']) }} as tripid, 
+    {{ dbt_utils.surrogate_key(['vendorid', 'tpep_pickup_datetime']) }} as tripid,
     CAST(vendorid AS INTEGER) AS vendorid, 
     CAST(ratecodeid AS INTEGER) AS ratecodeid, 
     CAST(pulocationid AS INTEGER) AS pickup_locationid, 
@@ -25,7 +25,7 @@ SELECT
     CAST(mta_tax AS NUMERIC) AS mta_tax, 
     CAST(tip_amount AS NUMERIC) AS tip_amount, 
     CAST(tolls_amount AS NUMERIC) AS tolls_amount, 
-    0 AS ehail_fee, 
+    CAST(0 AS NUMERIC) AS ehail_fee, 
     CAST(improvement_surcharge AS NUMERIC) AS improvement_surcharge, 
     CAST(total_amount AS NUMERIC) AS total_amount, 
     CAST(payment_type AS INTEGER) AS payment_type, 

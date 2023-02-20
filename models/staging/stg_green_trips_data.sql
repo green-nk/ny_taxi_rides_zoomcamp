@@ -2,7 +2,7 @@
 
 SELECT
     -- identifier
-    {{ dbt_utils.surrogate_key(['vendorid', 'lpep_dropoff_datetime']) }} as tripid, 
+    {{ dbt_utils.surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
     CAST(vendorid AS INTEGER) AS vendorid, 
     CAST(ratecodeid AS INTEGER) AS ratecodeid, 
     CAST(pulocationid AS INTEGER) AS pickup_locationid, 
@@ -16,7 +16,7 @@ SELECT
     store_and_fwd_flag, 
     CAST(passenger_count AS INTEGER) AS passenger_count, 
     CAST(trip_distance AS NUMERIC) AS trip_distance, 
-    CAST(trip_type AS INTEGER) AS trip_type, 
+    trip_type, 
 
     -- payment info
     CAST(fare_amount AS NUMERIC) AS fare_amount, 
