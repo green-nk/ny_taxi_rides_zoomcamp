@@ -32,4 +32,10 @@ SELECT
     CAST(congestion_surcharge AS NUMERIC) AS congestion_surcharge
     
 FROM {{ source('staging', 'green_trips_data') }}
-LIMIT 100
+WHERE vendorid IS NOT NULL
+-- dbt run --select <model.sql> --var 'is_test_run: false'
+{% if var('is_test_run', default=true) %}
+    
+    LIMIT 100
+
+{% endif %}
