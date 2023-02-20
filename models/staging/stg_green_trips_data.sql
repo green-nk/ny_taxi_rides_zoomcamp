@@ -2,6 +2,7 @@
 
 SELECT
     -- identifier
+    {{ dbt_utils.surrogate_key(['vendorid', 'lpep_dropoff_datetime']) }} as tripid, 
     CAST(vendorid AS INTEGER) AS vendorid, 
     CAST(ratecodeid AS INTEGER) AS ratecodeid, 
     CAST(pulocationid AS INTEGER) AS pickup_locationid, 
