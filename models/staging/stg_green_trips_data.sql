@@ -1,5 +1,14 @@
 {{ config(materialized='view') }}
 
+-- ensure a unique primary key by deduplicating data
+WITH trip_data AS (
+    SELECT 
+        *, 
+        ROW_NUMBER() OVER(PARTITION BY vendorid, lpep_pickup_datetime) AS rn
+    FROM {{ source('staging', 'green_trips_data') }}
+    WHERE vendorid IS NOT NULL
+)
+
 SELECT
     -- identifier
     {{ dbt_utils.surrogate_key(['vendorid', 'lpep_pickup_datetime']) }} as tripid,
@@ -31,8 +40,8 @@ SELECT
     {{ get_payment_type_description('payment_type') }} AS payment_type_description, 
     CAST(congestion_surcharge AS NUMERIC) AS congestion_surcharge
     
-FROM {{ source('staging', 'green_trips_data') }}
-WHERE vendorid IS NOT NULL
+FROM trip_data
+WHERE rn = 1
 -- dbt run --select <model.sql> --var 'is_test_run: false'
 {% if var('is_test_run', default=true) %}
     
