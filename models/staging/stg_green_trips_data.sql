@@ -27,6 +27,7 @@ SELECT
     CAST(improvement_surcharge AS NUMERIC) AS improvement_surcharge, 
     CAST(total_amount AS NUMERIC) AS total_amount, 
     CAST(payment_type AS INTEGER) AS payment_type, 
+    {{ get_payment_type_description('payment_type') }} AS payment_type_description, 
     CAST(congestion_surcharge AS NUMERIC) AS congestion_surcharge
     
 FROM {{ source('staging', 'green_trips_data') }}
