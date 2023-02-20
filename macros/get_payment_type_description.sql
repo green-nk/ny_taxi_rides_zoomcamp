@@ -2,7 +2,7 @@
     This macro returns the description of the payment_type
 #}
 
-{% macro get_payment_type_description(payment_type) %}
+{% macro get_payment_type_description(payment_type) -%}
 
     CASE {{ payment_type }}
         WHEN 1 THEN 'Credit card'
@@ -13,4 +13,4 @@
         WHEN 6 THEN 'Voided trip'
     END
 
-{% endmacro %}
+{%- endmacro %}
